@@ -12,70 +12,23 @@ cd self-reflection-certainty
 pip install -e .
 ```
 
-## 2. Environment Setup
-
-### With API Key
-
-Set your API key and model:
+## 2. Run Demo
 
 ```bash
 export LLM_MODEL="gpt-4"
 export LLM_API_KEY="your-api-key"
-```
-
-### Local Testing with Ollama
-
-For local testing without API costs:
-
-```bash
-# On macOS with Homebrew:
-brew install ollama
-
-# Start Ollama service
-brew services start ollama
-
-# Pull a model
-ollama pull llama2:7b
-
-# Test with inline command (no environment setup needed)
-LLM_MODEL="ollama/llama2:7b" python3 demo.py
-```
-
-## 3. Usage
-
-Run the demo:
-```bash
-# With API key
 python3 demo.py
-
-# With local Ollama (no API key needed)
-LLM_MODEL="ollama/llama2:7b" python3 demo.py
 ```
+
 
 ### API
 
 ```python
 from self_reflection_certainty import SelfReflectionCertainty
 
-# Create evaluator
-evaluator = SelfReflectionCertainty.from_env()
-
-# Evaluate a question
-result = evaluator.evaluate_answer("What is the capital of France?")
-print(f"Certainty: {result['certainty_score']:.2f}")
-```
-
-### Debug Mode
-
-Enable debug mode to see the full conversation flow:
-
-```python
 # With debug mode - shows all prompts and responses
 evaluator = SelfReflectionCertainty.from_env(debug=True)
-result = evaluator.evaluate_answer("What is 2+2?")
+
+# Evaluate a question
+evaluator.evaluate_answer("What is the capital of France?")
 ```
-
-### Methods
-
-- `from_env(num_evaluations=2, debug=False)` - Create evaluator using environment variables
-- `evaluate_answer(question, answer=None)` - Evaluate answer certainty
