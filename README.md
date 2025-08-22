@@ -33,11 +33,6 @@ evaluator = SelfReflectionCertainty.from_env(debug=True)
 evaluator.evaluate_answer("What is the capital of France?")
 ```
 
-### Methods
-
-- `from_env(num_evaluations=2, debug=False, max_retries=3, retry_delay=1.0)` - Create evaluator using environment variables
-- `evaluate_answer(question, answer=None)` - Evaluate answer certainty
-
 ### Rate Limiting & Retry
 
 The library automatically handles rate limit errors with exponential backoff:
