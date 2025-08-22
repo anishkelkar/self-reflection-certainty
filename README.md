@@ -35,7 +35,7 @@ evaluator.evaluate_answer("What is the capital of France?")
 
 ## 3. Development Process Overview & Time Spent
 
-### Total Development Time: **~2 hours**
+### Total Development Time: **~2+ hours**
 
 ### Resources & Tools Used
 - **Git & GitHub**: Version control and collaboration
@@ -45,16 +45,6 @@ evaluator.evaluate_answer("What is the capital of France?")
 - **Cursor**: IDE with AI assistance
 
 ### Development Phases & Time Breakdown
-1. **Paper Walkthrough & Git** (25 min): Initial setup and repository creation
-2. **Core Algorithm Implementation** (35 min): Basic self-reflection algorithm
-3. **API Design & Refactoring** (25 min): User-friendly interface design  
-4. **Rate Limiting & Error Handling** (35 min): Production features
-5. **Testing & Debugging** (25 min): Local testing with Ollama
-6. **Documentation & Polish** (25 min): README and final touches
-
-### Key Design Decisions
-- **Environment Variable Configuration**: `LLM_MODEL` and `LLM_API_KEY` for security
-- **Abstracted LLM Interface**: `LLMClient` base class with `LiteLLMClient` implementation
-- **Debug Mode**: Built-in conversation flow visibility for transparency
-- **Rate Limiting**: Automatic retry with exponential backoff for production robustness
-- **Local Model Support**: Ollama integration for development and testing
+1. **Paper Walkthrough & Git** (~15 min): Initial setup and repository creation
+2. **Core Algorithm Implementation + Api** (~1 hr): Basic self-reflection algorithm
+3. **Rate Limiting & Error Handling/Debugging** (45 min): Production features
