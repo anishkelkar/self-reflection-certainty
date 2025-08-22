@@ -63,13 +63,6 @@ evaluator = SelfReflectionCertainty.from_env()
 # Evaluate a question
 result = evaluator.evaluate_answer("What is the capital of France?")
 print(f"Certainty: {result['certainty_score']:.2f}")
-
-# Check trustworthiness
-is_trustworthy, result = evaluator.is_trustworthy(
-    question="What is 2 + 2?",
-    answer="2 + 2 equals 4",
-    threshold=0.7
-)
 ```
 
 ### Debug Mode
@@ -86,4 +79,3 @@ result = evaluator.evaluate_answer("What is 2+2?")
 
 - `from_env(num_evaluations=2, debug=False)` - Create evaluator using environment variables
 - `evaluate_answer(question, answer=None)` - Evaluate answer certainty
-- `is_trustworthy(question, answer=None, threshold=0.7)` - Binary trust check

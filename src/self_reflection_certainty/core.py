@@ -130,23 +130,6 @@ class SelfReflectionCertainty:
             'timings': timings
         }
     
-    def is_trustworthy(self, question: str, answer: Optional[str] = None, 
-                      threshold: float = 0.7) -> tuple:
-        """
-        Simple binary trustworthiness check.
-        
-        Args:
-            question: The question being asked
-            answer: The answer to evaluate. If None, generates one automatically.
-            threshold: Minimum certainty score to consider trustworthy (default: 0.7)
-            
-        Returns:
-            tuple: (is_trustworthy: bool, result: dict)
-        """
-        result = self.evaluate_answer(question, answer)
-        is_trustworthy = result['certainty_score'] >= threshold
-        return is_trustworthy, result
-    
     @classmethod
     def from_env(cls, num_evaluations: int = 2, debug: bool = False) -> 'SelfReflectionCertainty':
         """
