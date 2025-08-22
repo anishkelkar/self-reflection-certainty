@@ -2,7 +2,7 @@
 """
 Demo of the Self-Reflection Certainty library.
 
-This shows how to use the library to evaluate answer trustworthiness.
+This shows the full conversation flow: question → LLM answer → self-reflection → final score.
 """
 
 import os
@@ -32,50 +32,21 @@ def main():
     print("✅ API key found, running demo...")
     print()
     
-    # Create evaluator
-    evaluator = SelfReflectionCertainty.from_env()
+    # Create evaluator with debug mode enabled
+    evaluator = SelfReflectionCertainty.from_env(debug=True)
     
-    # Demo 1: Evaluate a simple question
-    print("📝 Demo 1: Evaluating a simple question")
-    print("Question: What is the capital of France?")
-    
-    result = evaluator.evaluate_answer("What is the capital of France?")
-    print(f"Answer: {result['answer']}")
-    print(f"Certainty: {result['certainty_score']:.2f}")
+    # Demo: Single question with full conversation flow
+    question = "What is the capital of France?"
+    print(f"Question: {question}")
     print()
     
-    # Demo 2: Evaluate an existing answer
-    print("📝 Demo 2: Evaluating an existing answer")
-    print("Question: What is 2 + 2?")
-    print("Answer: 2 + 2 equals 4")
-    
-    result = evaluator.evaluate_answer(
-        question="What is 2 + 2?",
-        answer="2 + 2 equals 4"
-    )
-    print(f"Certainty: {result['certainty_score']:.2f}")
-    print(f"Trustworthy: {'Yes' if result['certainty_score'] >= 0.7 else 'No'}")
-    print()
-    
-    # Demo 3: Trustworthiness check
-    print("📝 Demo 3: Trustworthiness check")
-    print("Question: What is the population of Tokyo?")
-    print("Answer: Tokyo has a population of approximately 37 million people.")
-    
-    is_trustworthy, result = evaluator.is_trustworthy(
-        question="What is the population of Tokyo?",
-        answer="Tokyo has a population of approximately 37 million people.",
-        threshold=0.8
-    )
-    
-    print(f"Certainty: {result['certainty_score']:.2f}")
-    print(f"Trustworthy (threshold 0.8): {'Yes' if is_trustworthy else 'No'}")
-    print()
+    # Get the full result (debug info will be printed automatically)
+    result = evaluator.evaluate_answer(question)
     
     print("🎉 Demo complete!")
     print("\nTo use in your own code:")
     print("  from self_reflection_certainty import SelfReflectionCertainty")
-    print("  evaluator = SelfReflectionCertainty.from_env()")
+    print("  evaluator = SelfReflectionCertainty.from_env(debug=True)")
     print("  result = evaluator.evaluate_answer('Your question here')")
 
 

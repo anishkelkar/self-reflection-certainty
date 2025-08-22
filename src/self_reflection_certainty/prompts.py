@@ -44,7 +44,7 @@ Respond with ONLY the letter (A, B, or C)"""
 def get_evaluation_prompts(question: str, answer: str, num_evaluations: int = 2) -> List[str]:
     prompts = [
         get_base_evaluation_prompt(question, answer),
-        get_reflective_evaluation_prompt(question, answer)
+        get_reflective_evaluation_prompt(question, answer),
     ]
     
     # If more evaluations needed, cycle through available prompts
