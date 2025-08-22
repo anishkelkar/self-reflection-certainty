@@ -4,6 +4,14 @@
 .env.production
 *.key
 
+# Provider-specific API keys (common patterns)
+*_API_KEY
+*_api_key
+
+# Generic LLM configuration
+LLM_API_KEY
+LLM_MODEL
+
 # Python
 __pycache__/
 *.pyc
