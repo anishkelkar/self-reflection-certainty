@@ -19,19 +19,23 @@ class SelfReflectionCertainty:
     def __init__(self, 
                  client: Optional[LLMClient] = None, 
                  num_evaluations: int = 2,
-                 debug: bool = False):
+                 debug: bool = False,
+                 max_retries: int = 3,
+                 retry_delay: float = 1.0):
         """
         Initialize the self-reflection certainty evaluator.
         
         Args:
             client: LLM client adapter for making API calls
-                   If None, creates a LiteLLMClient using environment variables
+                    If None, creates a LiteLLMClient using environment variables
             num_evaluations: Number of self-evaluation rounds to perform
             debug: If True, prints detailed conversation flow
+            max_retries: Maximum retries for rate limit errors
+            retry_delay: Base delay between retries (exponential backoff)
         """
         if client is None:
             # Auto-create client using environment variables for security
-            self.client = LiteLLMClient()
+            self.client = LiteLLMClient(max_retries=max_retries, retry_delay=retry_delay)
         else:
             self.client = client
         
@@ -131,13 +135,16 @@ class SelfReflectionCertainty:
         }
     
     @classmethod
-    def from_env(cls, num_evaluations: int = 2, debug: bool = False) -> 'SelfReflectionCertainty':
+    def from_env(cls, num_evaluations: int = 2, debug: bool = False, 
+                 max_retries: int = 3, retry_delay: float = 1.0) -> 'SelfReflectionCertainty':
         """
         Create evaluator using environment variables (recommended).
         
         Args:
             num_evaluations: Number of evaluation rounds
             debug: If True, prints detailed conversation flow
+            max_retries: Maximum retries for rate limit errors
+            retry_delay: Base delay between retries (exponential backoff)
             
         Requires:
         - LLM_API_KEY: Your API key
@@ -147,6 +154,7 @@ class SelfReflectionCertainty:
             export LLM_API_KEY="your-api-key"
             export LLM_MODEL="gpt-4"
             
-            evaluator = SelfReflectionCertainty.from_env(debug=True)
+            evaluator = SelfReflectionCertainty.from_env(debug=True, max_retries=5)
         """
-        return cls(num_evaluations=num_evaluations, debug=debug)
+        return cls(num_evaluations=num_evaluations, debug=debug, 
+                  max_retries=max_retries, retry_delay=retry_delay)
